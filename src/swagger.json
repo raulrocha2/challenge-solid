@@ -1,0 +1,242 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Introdução ao SOLID",
+        "description": "Documentando API desafio chapter 2- Introdução ao SOLID para completar o Desafio 02.",
+        "version": "1.0.0",
+        "contact": {
+            "email": "raul.rocha2@gmail.com"
+        }
+
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["New user"],
+                "summary": "Create new user",
+                "description": "The route receive a name and email to create new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "email"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Name example",
+                                    "email": "example@email.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "datetime"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "example": {
+
+                                            "id": "bdbf04c4-925a-4b24-88f1-ca4ddac9ce95",
+                                            "admin": true,
+                                            "name": "User Name",
+                                            "email": "user@email.com",
+                                            "created_at": "2021-10-05T21:46:52.979Z",
+                                            "updated_at": "2021-10-05T21:46:52.979Z"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                    "400": "Category already exists"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": ["Turn user admin"],
+                "summary": "Turn user admin",
+                "description": "This route receive id of user and turn user in admin",
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "ID of user",
+                    "required": true,
+                    "schema": {
+                    "type": "uuid"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "datetime"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "example": {
+
+                                            "id": "bdbf04c4-925a-4b24-88f1-ca4ddac9ce95",
+                                            "admin": true,
+                                            "name": "User Name",
+                                            "email": "user@email.com",
+                                            "created_at": "2021-10-05T21:46:52.979Z",
+                                            "updated_at": "2021-10-05T21:46:52.979Z"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "404": "Error user not found"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": ["Get user by id"],
+                "summary": "Get user by id",
+                "description": "This route receive id of user and return data of user.",
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "User Id",
+                    "required": true,
+                    "schema": {
+                    "type": "uuid"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "datetime"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "example": {
+
+                                            "id": "bdbf04c4-925a-4b24-88f1-ca4ddac9ce95",
+                                            "admin": true,
+                                            "name": "User Name",
+                                            "email": "user@email.com",
+                                            "created_at": "2021-10-05T21:46:52.979Z",
+                                            "updated_at": "2021-10-05T21:46:52.979Z"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                    "404": "Error user not found"
+                    }
+                }
+            }
+        },
+        "/users/": {
+            "get": {
+                "tags": ["Get all users "],
+                "summary": "List all user registred",
+                "description": "This route return list of all users. The user need be admin",
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "Parameter through header",
+                    "required": true,
+                    "schema": {
+                    "type": "uuid"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        
+                                        "example": {
+
+                                            "description": "Json with all users "
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                    "400": "Error user not found or permission denied"
+                    }
+                }
+            }
+        }
+    }
+}
